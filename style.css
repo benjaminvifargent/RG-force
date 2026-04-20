@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+    --bg-color: #101015;
+    --card-bg: rgba(25, 25, 30, 0.85);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --volt-yellow: #DFFF00;
+    --volt-glow: rgba(223, 255, 0, 0.4);
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A5;
+    --alert-red: #FF3030;
+    --gold: #FFD700;
+    --silver: #C0C0C0;
+    --bronze: #CD7F32;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image:
+        /*radial-gradient(circle at 20% 30%, rgba(255, 100, 0, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(223, 255, 0, 0.05) 0%, transparent 40%),
+        linear-gradient(rgba(16, 16, 21, 0.8), rgba(16, 16, 21, 0.9)),*/
+        url('clay_court_texture.png');
+    background-size: cover, cover, cover, cover;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: 60fr 40fr;
+    width: 95vw;
+    height: 90vh;
+    gap: 30px;
+    max-width: 1600px;
+}
+
+/* Typography Overrides */
+h1,
+h2,
+.score-display,
+.rank-number {
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Glassmorphism Cards */
+.panel {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--volt-yellow);
+    opacity: 0.3;
+}
+
+/* Left Column Styling */
+.main-action {
+    justify-content: space-between;
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 0.9;
+    background: linear-gradient(to right, #fff, var(--volt-yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Forms */
+.form-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.form-container h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--volt-yellow);
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 15px 15px 15px 45px;
+    color: white;
+    font-size: 1rem;
+    transition: var(--transition-speed);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--volt-yellow);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-start {
+    background: var(--volt-yellow);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all var(--transition-speed);
+    margin-top: 10px;
+    box-shadow: 0 0 20px var(--volt-glow);
+}
+
+.btn-start:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px var(--volt-glow);
+}
+
+/* Live Feed State */
+.live-test {
+    display: none;
+    /* Controlled by JS */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.alert-text {
+    color: var(--alert-red);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.gauge-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    margin-bottom: 30px;
+}
+
+.circular-gauge {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 25;
+}
+
+.gauge-fill {
+    fill: none;
+    stroke: url(#gaugeGradient);
+    stroke-width: 25;
+    stroke-dasharray: 879.6;
+    /* 2 * PI * 140 */
+    stroke-dashoffset: 879.6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s ease-out;
+}
+
+.score-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.score-val {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--volt-yellow);
+    text-shadow: 0 0 20px var(--volt-glow);
+    display: block;
+    line-height: 1;
+}
+
+.score-unit {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* Right Column (Leaderboard) */
+.leaderboard h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.leaderboard h2 i {
+    color: var(--volt-yellow);
+}
+
+.rank-list {
+    list-style: none;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.rank-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.rank-list::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 10px;
+}
+
+.rank-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 50px 1fr 100px;
+    align-items: center;
+    transition: transform var(--transition-speed);
+}
+
+.rank-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.rank-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.rank-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.rank-score {
+    text-align: right;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: var(--volt-yellow);
+}
+
+/* Top 3 Stylings */
+.rank-item.top-1 {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), transparent);
+    border-color: var(--gold);
+}
+
+.rank-item.top-1 .rank-number {
+    color: var(--gold);
+}
+
+.rank-item.top-1 .rank-name::after {
+    content: '👑';
+    margin-left: 8px;
+    font-size: 1rem;
+}
+
+.rank-item.top-2 {
+    background: linear-gradient(90deg, rgba(192, 192, 192, 0.15), transparent);
+    border-color: var(--silver);
+}
+
+.rank-item.top-2 .rank-number {
+    color: var(--silver);
+}
+
+.rank-item.top-3 {
+    background: linear-gradient(90deg, rgba(205, 127, 50, 0.15), transparent);
+    border-color: var(--bronze);
+}
+
+.rank-item.top-3 .rank-number {
+    color: var(--bronze);
+}
+
+.user-status {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.user-status span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Utils */
+.hidden {
+    display: none !important;
+}

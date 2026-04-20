@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Power Meter | Performance Kiosk</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Colonne de Gauche : Action -->
+        <section class="panel main-action">
+            <header class="header">
+                <h1>TENNIS<br>LA PRISE MARTEAU</h1>
+            </header>
+
+            <!-- Zone d'Action Initiale : Enregistrement -->
+            <div id="registration-zone" class="form-container">
+                <h2>ENTREZ SUR LE COUR</h2>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="pseudo" placeholder="Pseudo" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" autocomplete="off">
+                </div>
+                <button id="start-btn" class="btn-start">COMMENCER LE TEST</button>
+            </div>
+
+            <!-- Zone de Test : Live Feed -->
+            <div id="test-zone" class="live-test">
+                <h2 class="alert-text">SERREZ LA RAQUETTE !</h2>
+
+                <div class="gauge-container">
+                    <svg class="circular-gauge" viewBox="0 0 300 300">
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4CAF50" />
+                                <stop offset="50%" style="stop-color:#FFEB3B" />
+                                <stop offset="100%" style="stop-color:#DFFF00" />
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <circle class="gauge-bg" cx="150" cy="150" r="140"></circle>
+                        <circle class="gauge-fill" id="gauge-path" cx="150" cy="150" r="140"></circle>
+                    </svg>
+                    <div class="score-overlay">
+                        <span class="score-val" id="current-score">0.0</span>
+                        <span class="score-unit">KG</span>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); font-style: italic;">Puissance maximale détectée...</p>
+            </div>
+        </section>
+
+        <!-- Colonne de Droite : Leaderboard -->
+        <section class="panel leaderboard">
+            <h2><i class="fa-solid fa-trophy"></i> TOP 10 DES LÉGENDES</h2>
+
+            <ul id="rank-list" class="rank-list">
+                <!-- Les lignes du classement seront générées par JS -->
+            </ul>
+
+            <div class="user-status">
+                Votre Rang : <span id="user-rank">--</span>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
