@@ -4,78 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tennis Power Meter | Performance Kiosk</title>
+    <title>THE GRIP</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <div id="app">
-        <!-- Colonne de Gauche : Action -->
-        <section class="panel main-action">
-            <header class="header">
-                <h1>TENNIS<br>LA PRISE MARTEAU</h1>
-            </header>
+        <header class="header">
+            <img src="logoWAT.svg" alt="Logo WAT" class="logo">
+            <h1>THE GRIP</h1>
+        </header>
 
-            <!-- Zone d'Action Initiale : Enregistrement -->
-            <div id="registration-zone" class="form-container">
-                <h2>ENTREZ SUR LE COUR</h2>
-                <div class="input-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="pseudo" placeholder="Pseudo" autocomplete="off">
+        <main class="main-content">
+            <!-- Colonne de Gauche : Action -->
+            <section class="panel main-action">
+                <!-- Zone d'Action Initiale : Enregistrement -->
+                <div id="registration-zone" class="form-container">
+                    <h2>Révèle la force de ton grip</h2>
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="pseudo" placeholder="Pseudo" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-cake-candles"></i>
+                        <input type="number" id="age" placeholder="Âge" autocomplete="off">
+                    </div>
+                    <button id="start-btn" class="btn-start">COMMENCER LE TEST</button>
                 </div>
-                <div class="input-group">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Email" autocomplete="off">
+
+                <!-- Clavier Virtuel -->
+                <div id="virtual-keyboard" class="keyboard hidden">
+                    <div class="keyboard-row" data-row="0"></div>
+                    <div class="keyboard-row" data-row="1"></div>
+                    <div class="keyboard-row" data-row="2"></div>
+                    <div class="keyboard-row" data-row="3"></div>
+                    <div class="keyboard-row" data-row="4"></div>
                 </div>
-                <button id="start-btn" class="btn-start">COMMENCER LE TEST</button>
-            </div>
 
-            <!-- Zone de Test : Live Feed -->
-            <div id="test-zone" class="live-test">
-                <h2 class="alert-text">SERREZ LA RAQUETTE !</h2>
+                <!-- Zone de Test : Live Feed -->
+                <div id="test-zone" class="live-test">
+                    <h2 id="alert-msg" class="alert-text">SERREZ LA RAQUETTE !</h2>
 
-                <div class="gauge-container">
-                    <svg class="circular-gauge" viewBox="0 0 300 300">
-                        <defs>
-                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#4CAF50" />
-                                <stop offset="50%" style="stop-color:#FFEB3B" />
-                                <stop offset="100%" style="stop-color:#DFFF00" />
-                            </linearGradient>
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="5" result="coloredBlur" />
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur" />
-                                    <feMergeNode in="SourceGraphic" />
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <circle class="gauge-bg" cx="150" cy="150" r="140"></circle>
-                        <circle class="gauge-fill" id="gauge-path" cx="150" cy="150" r="140"></circle>
-                    </svg>
-                    <div class="score-overlay">
-                        <span class="score-val" id="current-score">0.0</span>
-                        <span class="score-unit">KG</span>
+                    <div class="gauge-container">
+                        <svg class="circular-gauge" viewBox="0 0 330 330">
+                            <defs>
+                                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--accent-green)" />
+                                    <stop offset="50%" style="stop-color:var(--volt-yellow)" />
+                                    <stop offset="100%" style="stop-color:var(--accent-orange)" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <circle class="gauge-bg" cx="165" cy="165" r="140"></circle>
+                            <circle class="gauge-fill" id="gauge-path" cx="165" cy="165" r="140"></circle>
+                        </svg>
+                        <div class="score-overlay">
+                            <span class="score-val" id="current-score">0.0</span>
+                            <span class="score-unit">KG</span>
+                        </div>
+                    </div>
+
+                    <p id="test-instruction" style="color: var(--text-secondary); font-style: italic;">Puissance
+                        maximale détectée...</p>
+
+                    <div id="user-rank-container" class="final-rank-display hidden">
+                        VOTRE RANG : <span id="user-rank">--</span>
                     </div>
                 </div>
+            </section>
 
-                <p style="color: var(--text-secondary); font-style: italic;">Puissance maximale détectée...</p>
+            <!-- Colonne de Droite : Leaderboard -->
+            <section class="panel leaderboard">
+                <h2><i class="fa-solid fa-trophy"></i> RANKING LEGEND</h2>
+
+                <ul id="rank-list" class="rank-list">
+                    <!-- Les lignes du classement seront générées par JS -->
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de Podium -->
+    <div id="podium-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa-solid fa-trophy trophy-icon"></i>
+                <h2 id="modal-title">NOUVEAU RECORD !</h2>
             </div>
-        </section>
-
-        <!-- Colonne de Droite : Leaderboard -->
-        <section class="panel leaderboard">
-            <h2><i class="fa-solid fa-trophy"></i> TOP 10 DES LÉGENDES</h2>
-
-            <ul id="rank-list" class="rank-list">
-                <!-- Les lignes du classement seront générées par JS -->
-            </ul>
-
-            <div class="user-status">
-                Votre Rang : <span id="user-rank">--</span>
+            <div class="modal-body">
+                <p><span id="modal-pseudo">Joueur</span>, vous entrez dans la légende à la</p>
+                <div id="modal-rank" class="modal-rank-val">PREMIÈRE <br>PLACE</div>
             </div>
-        </section>
+            <button id="close-modal" class="btn-modal">CONTINUER</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
