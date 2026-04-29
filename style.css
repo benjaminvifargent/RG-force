@@ -29,7 +29,7 @@
 
 body {
     background-color: var(--bg-color);
-    background-image: url('clay_court_texture.png');
+    background-image: url('fond.jpeg');
     background-size: cover;
     background-position: center;
     color: var(--text-primary);
@@ -120,9 +120,7 @@ h2,
     font-style: italic;
     font-weight: 900;
     line-height: 0.9;
-    background: linear-gradient(to right, var(--text-primary), var(--volt-yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--gold);
     letter-spacing: -3px;
     padding-right: 60px;
     margin-right: -60px;
@@ -218,10 +216,13 @@ h2,
 }
 
 @keyframes textPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: rotate(-5deg) skewX(5deg) scale(1);
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
+
     50% {
         transform: rotate(-5deg) skewX(5deg) scale(1.05);
         text-shadow: 0 0 30px var(--volt-glow);
@@ -490,8 +491,15 @@ h2,
 }
 
 @keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Modal System */
@@ -577,28 +585,61 @@ h2,
 
 /* Modal Animations */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes popIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes rotateTrophy {
-    from { transform: rotate(-10deg); }
-    to { transform: rotate(10deg); }
+    from {
+        transform: rotate(-10deg);
+    }
+
+    to {
+        transform: rotate(10deg);
+    }
 }
 
 /* Modal Rank Colors */
-.modal.rank-1 .modal-content { border-color: var(--gold); }
-.modal.rank-2 .modal-content { border-color: var(--silver); }
-.modal.rank-3 .modal-content { border-color: var(--bronze); }
+.modal.rank-1 .modal-content {
+    border-color: var(--gold);
+}
 
-.modal.rank-1 .modal-rank-val { color: var(--gold); }
-.modal.rank-2 .modal-rank-val { color: var(--silver); }
-.modal.rank-3 .modal-rank-val { color: var(--bronze); }
+.modal.rank-2 .modal-content {
+    border-color: var(--silver);
+}
+
+.modal.rank-3 .modal-content {
+    border-color: var(--bronze);
+}
+
+.modal.rank-1 .modal-rank-val {
+    color: var(--gold);
+}
+
+.modal.rank-2 .modal-rank-val {
+    color: var(--silver);
+}
+
+.modal.rank-3 .modal-rank-val {
+    color: var(--bronze);
+}
 
 /* Utils */
 .hidden {
