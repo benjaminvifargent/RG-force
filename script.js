@@ -1,3 +1,7 @@
+const socket = io("http://localhost:5000"); // Se connecte au serveur Flask (adapter l'IP si besoin)
+let isTesting = false; // Pour savoir si on enregistre le record
+let maxForceDetected = 0; // Stocke la valeur max pendant l'effort
+
 document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('start-btn');
     const registrationZone = document.getElementById('registration-zone');
@@ -110,44 +114,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initKeyboard();
 
+
+
+
+
     function startTest(pseudo) {
-        // Transition UI
         registrationZone.style.display = 'none';
         testZone.style.display = 'flex';
 
-        // Simulation du test de force
-        simulateTest(pseudo);
+        isTesting = true;
+        maxForceDetected = 0;
+        alertMsg.textContent = 'SERREZ !!!';
+
+        // Durée du test : 5 secondes
+        setTimeout(() => {
+            isTesting = false;
+            saveAndReset(pseudo, maxForceDetected);
+        }, 5000);
     }
 
-    function simulateTest(pseudo) {
-        let currentForce = 0;
-        let targetForce = 40 + Math.random() * 60; // Max entre 40 et 100 kg
-        let duration = 3000; // 3 secondes de montée
-        let startTime = null;
 
-        function animate(timestamp) {
-            if (!startTime) startTime = timestamp;
-            let progress = timestamp - startTime;
-            let percentage = Math.min(progress / duration, 1);
 
-            // Courbe de progression (ease out quad pour simuler la fatigue/limite)
-            let easedPercentage = 1 - (1 - percentage) * (1 - percentage);
-            currentForce = easedPercentage * targetForce;
 
-            updateUI(currentForce);
+    // Écoute les données envoyées par Python (app.py)
+    socket.on('force_update', function (data) {
+        if (isTesting) {
+            let currentForce = data.value; // Valeur reçue du ADS1115
 
-            if (percentage < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                // Test terminé
-                setTimeout(() => {
-                    saveAndReset(pseudo, currentForce);
-                }, 2000);
+            // On garde uniquement la force maximale atteinte
+            if (currentForce > maxForceDetected) {
+                maxForceDetected = currentForce;
             }
-        }
 
-        requestAnimationFrame(animate);
-    }
+            updateUI(currentForce); // Met à jour la jauge en temps réel
+        }
+    });
+
+
+
+
+
+
 
     function updateUI(force) {
         // Mettre à jour le texte
