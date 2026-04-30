@@ -14,20 +14,26 @@ RG-Force est une interface de borne interactive premium conçue pour mesurer et 
 
 - **Structure :** HTML5 Sémantique.
 - **Styles :** Vanilla CSS3 (Variables, Flexbox, Grid, Animations).
-- **Logique :** JavaScript Vanilla (DOM Manipulation, Simulation de données).
-- **Icônes :** Font Awesome 6.
+- **Back-end :** Python Flask.
+- **Communication :** Socket.IO (temps réel).
+- **Icônes :** SVG inline (optimisé offline).
 
 ## 🚀 Installation & Utilisation
 
-1. Clonez le dépôt :
+1. **Clonez le dépôt :**
    ```bash
    git clone https://github.com/benjaminvifargent/RG-force.git
    ```
-2. Ouvrez le fichier `index.html` dans votre navigateur :
-   ```bash
-   # Sur Windows (PowerShell)
-   start index.html
-   ```
+
+2. **Lancer la machine sur Raspberry pi5:**
+   Ouvre ton terminal sur le Pi et fais ceci :
+   - Navigue dans ton dossier : `cd /chemin/vers/RG-force`
+   - Lance le serveur : `python app.py --break-system-packages`
+   - Laisse le terminal ouvert ! S'il affiche des lignes de log, c'est que le moteur tourne.
+
+3. **Accéder au jeu :**
+   Maintenant, n'ouvre plus ton fichier `index.html` en double-cliquant dessus. Ouvre Chromium et tape simplement :
+   `http://localhost:5000`
 
 ## 🎨 Design & Esthétique
 
