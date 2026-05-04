@@ -25,12 +25,30 @@ def index():
     # Flask cherche dans le dossier /templates
     return render_template('index.html')
 
+baseline = None
+
 def read_sensor():
+    global baseline
+    # Attendre un court instant pour que le capteur se stabilise
+    socketio.sleep(1)
+    
     while True:
         raw_value = chan.value
-        # Calibration : 0 à 120 pour correspondre à ton script.js
-        force_kg = max(0, (raw_value - 500) / 250)
-        # Envoi de la donnée[cite: 2]
+        
+        # Au démarrage, on définit la valeur actuelle comme le zéro (tare)
+        if baseline is None:
+            baseline = raw_value
+            print(f"Capteur calibré. Baseline (0kg) = {baseline}")
+
+        # Inversion de la logique :
+        # Plus on serre, plus la résistance baisse, plus le raw_value baisse (selon ton montage)
+        # On calcule donc la différence par rapport au repos
+        force_raw = baseline - raw_value
+        
+        # On divise par 250 (à ajuster pour la précision des KG)
+        force_kg = max(0, force_raw / 250)
+        
+        # Envoi de la donnée
         socketio.emit('force_update', {'value': round(force_kg, 1)})
         socketio.sleep(0.05)
 
