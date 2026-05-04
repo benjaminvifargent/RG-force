@@ -234,7 +234,7 @@ h2,
     position: relative;
 }
 
-.input-group i {
+.input-group svg {
     position: absolute;
     left: 15px;
     top: 50%;
@@ -371,7 +371,7 @@ h2,
     gap: 15px;
 }
 
-.leaderboard h2 i {
+.leaderboard h2 svg {
     color: var(--volt-yellow);
 }
 
