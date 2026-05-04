@@ -46,7 +46,7 @@ def read_sensor():
         force_raw = baseline - raw_value
         
         # On divise par 250 (à ajuster pour la précision des KG)
-        force_kg = max(0, force_raw / 350)
+        force_kg = max(0, force_raw / 100)
         
         # Envoi de la donnée
         socketio.emit('force_update', {'value': round(force_kg, 1)})

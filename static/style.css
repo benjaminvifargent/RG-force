@@ -239,7 +239,8 @@ h2,
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--volt-yellow);
+    fill: var(--volt-yellow);
+    opacity: 0.8;
 }
 
 .input-group input {
@@ -371,8 +372,8 @@ h2,
     gap: 15px;
 }
 
-.leaderboard h2 svg {
-    color: var(--volt-yellow);
+.leaderboard h2 .leaderboard-icon {
+    fill: var(--volt-yellow);
 }
 
 .rank-list {
@@ -530,12 +531,9 @@ h2,
     animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.trophy-icon {
-    font-size: 8rem;
-    color: var(--volt-yellow);
-    margin-bottom: 20px;
+.modal-icon {
+    fill: var(--volt-yellow);
     filter: drop-shadow(0 0 20px var(--volt-glow));
-    animation: rotateTrophy 1s ease-in-out infinite alternate;
 }
 
 #modal-title {
