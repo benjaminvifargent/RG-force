@@ -24,16 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Données de simulation pour le classement
     let leaderboardData = [
-        { pseudo: "Rafa_Grip", score: 98.5 },
-        { pseudo: "Djoko_Fan", score: 95.2 },
-        { pseudo: "FedEx_Force", score: 92.8 },
-        { pseudo: "TennisMaster", score: 88.1 },
-        { pseudo: "AlcarazUnit", score: 85.0 },
-        { pseudo: "AceKing", score: 82.4 },
-        { pseudo: "BackhandBeast", score: 79.9 },
-        { pseudo: "NetRushing", score: 75.3 },
-        { pseudo: "BaselinePro", score: 71.2 },
-        { pseudo: "ClayWarrior", score: 68.5 }
+        { pseudo: "Rafa_Grip", score: 62.5 },
+        { pseudo: "Djoko_Fan", score: 59.2 },
+        { pseudo: "FedEx_Force", score: 56.8 },
+        { pseudo: "TennisMaster", score: 52.1 },
+        { pseudo: "AlcarazUnit", score: 48.0 },
+        { pseudo: "AceKing", score: 44.4 },
+        { pseudo: "BackhandBeast", score: 41.9 },
+        { pseudo: "NetRushing", score: 38.3 },
+        { pseudo: "BaselinePro", score: 34.2 },
+        { pseudo: "ClayWarrior", score: 31.5 }
     ];
 
     // Initialiser le classement au chargement
