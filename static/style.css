@@ -234,13 +234,27 @@ h2,
     position: relative;
 }
 
-.input-group svg {
+.input-group img {
     position: absolute;
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    fill: var(--volt-yellow);
+    background-color: var(--volt-yellow);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
     opacity: 0.8;
+}
+
+.icon-person {
+    -webkit-mask-image: url('person.svg');
+    mask-image: url('person.svg');
+}
+
+.icon-calendar {
+    -webkit-mask-image: url('calendar_today.svg');
+    mask-image: url('calendar_today.svg');
 }
 
 .input-group input {
@@ -373,7 +387,11 @@ h2,
 }
 
 .leaderboard h2 .leaderboard-icon {
-    fill: var(--volt-yellow);
+    background-color: var(--volt-yellow);
+    -webkit-mask: url('trophy.svg') no-repeat center;
+    mask: url('trophy.svg') no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 .rank-list {
@@ -450,9 +468,17 @@ h2,
 }
 
 .rank-item.top-1 .rank-name::after {
-    content: '👑';
-    margin-left: 8px;
-    font-size: 1rem;
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    background-color: var(--gold);
+    -webkit-mask: url('crown.svg') no-repeat center;
+    mask: url('crown.svg') no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    vertical-align: middle;
 }
 
 .rank-item.top-2 {
@@ -532,8 +558,13 @@ h2,
 }
 
 .modal-icon {
-    fill: var(--volt-yellow);
+    background-color: var(--volt-yellow);
+    -webkit-mask: url('trophy.svg') no-repeat center;
+    mask: url('trophy.svg') no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
     filter: drop-shadow(0 0 20px var(--volt-glow));
+    animation: trophyWin 2s infinite ease-in-out;
 }
 
 #modal-title {
@@ -604,13 +635,12 @@ h2,
     }
 }
 
-@keyframes rotateTrophy {
-    from {
-        transform: rotate(-10deg);
+@keyframes trophyWin {
+    0%, 100% {
+        transform: rotate(-15deg) scale(1);
     }
-
-    to {
-        transform: rotate(10deg);
+    50% {
+        transform: rotate(15deg) scale(1.15);
     }
 }
 
