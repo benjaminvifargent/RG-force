@@ -27,11 +27,6 @@
                         <img src="/static/person.svg" alt="person" class="picto-svg icon-person" width="20" height="20">
                         <input type="text" id="pseudo" placeholder="Pseudo" autocomplete="off">
                     </div>
-                    <div class="input-group">
-                        <img src="/static/calendar_today.svg" alt="calendar_today" class="picto-svg icon-calendar" width="20"
-                            height="20">
-                        <input type="number" id="age" placeholder="Âge" autocomplete="off">
-                    </div>
                     <button id="start-btn" class="btn-start">COMMENCER LE TEST</button>
                 </div>
 
@@ -46,6 +41,9 @@
 
                 <!-- Zone de Test : Live Feed -->
                 <div id="test-zone" class="live-test">
+                    <div id="countdown-overlay" class="countdown-overlay hidden">
+                        <span id="countdown-number"></span>
+                    </div>
                     <h2 id="alert-msg" class="alert-text">SERREZ LA RAQUETTE !</h2>
 
                     <div class="gauge-container">

@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const testInstruction = document.getElementById('test-instruction');
     const alertMsg = document.getElementById('alert-msg');
     const pseudoInput = document.getElementById('pseudo');
-    const ageInput = document.getElementById('age');
     const keyboard = document.getElementById('virtual-keyboard');
+    const countdownOverlay = document.getElementById('countdown-overlay');
+    const countdownNumber = document.getElementById('countdown-number');
     const podiumModal = document.getElementById('podium-modal');
     const modalPseudo = document.getElementById('modal-pseudo');
     const modalRank = document.getElementById('modal-rank');
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         activeInput.dispatchEvent(new Event('input'));
     }
 
-    [pseudoInput, ageInput].forEach(input => {
+    [pseudoInput].forEach(input => {
         input.addEventListener('focus', () => {
             activeInput = input;
             keyboard.classList.remove('hidden');
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cacher le clavier si on clique ailleurs
     document.addEventListener('mousedown', (e) => {
-        if (!keyboard.contains(e.target) && e.target !== pseudoInput && e.target !== ageInput) {
+        if (!keyboard.contains(e.target) && e.target !== pseudoInput) {
             keyboard.classList.add('hidden');
         }
     });
@@ -122,6 +123,24 @@ document.addEventListener('DOMContentLoaded', () => {
         registrationZone.style.display = 'none';
         testZone.style.display = 'flex';
 
+        // Phase de compte à rebours
+        countdownOverlay.classList.remove('hidden');
+        let count = 3;
+        countdownNumber.textContent = count;
+
+        const timer = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdownNumber.textContent = count;
+            } else {
+                clearInterval(timer);
+                countdownOverlay.classList.add('hidden');
+                runActualTest(pseudo);
+            }
+        }, 1000);
+    }
+
+    function runActualTest(pseudo) {
         isTesting = true;
         maxForceDetected = 0;
         alertMsg.textContent = 'SERREZ !!!';
@@ -169,6 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveAndReset(pseudo, finalScore) {
+        // S'assurer que l'UI affiche le score max final
+        updateUI(finalScore);
+
         // Ajouter au classement
         leaderboardData.push({ pseudo: pseudo, score: parseFloat(finalScore.toFixed(1)) });
         leaderboardData.sort((a, b) => b.score - a.score);
@@ -206,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentScoreEl.textContent = '0.0';
             gaugePath.style.strokeDashoffset = '879.64';
             pseudoInput.value = '';
-            document.getElementById('age').value = '';
         }, 8000); // Laisser un peu plus de temps pour admirer le score
     }
 
