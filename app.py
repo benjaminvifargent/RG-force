@@ -25,6 +25,7 @@ def index():
     # Flask cherche dans le dossier /templates
     return render_template('index.html')
 
+FORCE_MULTIPLIER = 1.9  # Multiplicateur pour ajuster la force (18kg -> ~34kg)
 baseline = None
 
 def read_sensor():
@@ -45,8 +46,8 @@ def read_sensor():
         # On calcule donc la différence par rapport au repos
         force_raw = baseline - raw_value
         
-        # On divise par 250 (à ajuster pour la précision des KG)
-        force_kg = max(0, force_raw / 100)
+        # On divise par 100 et on applique le multiplicateur
+        force_kg = max(0, (force_raw / 100) * FORCE_MULTIPLIER)
         
         # Envoi de la donnée
         socketio.emit('force_update', {'value': round(force_kg, 1)})
